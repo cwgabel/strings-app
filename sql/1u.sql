@@ -1,4 +1,4 @@
-create extension if not EXISTS citext;
+CREATE EXTENSION IF NOT EXISTS CITEXT;
 
 CREATE TABLE
  IF NOT EXISTS PUBLIC.USERS (
@@ -14,25 +14,25 @@ CREATE TABLE
 CREATE TABLE 
  IF NOT EXISTS PUBLIC.POSTS (
         ID BIGSERIAL PRIMARY KEY,
-        USER_ID bigint references public.users (id),
-        content text,
+        USER_ID BIGINT REFERENCES PUBLIC.USERS (ID),
+        CONTENT TEXT,
         CREATED_AT TIMESTAMP DEFAULT NOW (),
         UPDATED_AT TIMESTAMP DEFAULT NOW ()
     );
 
 CREATE TABLE 
- IF NOT EXISTS PUBLIC.follows (
-        USER_ID BIGSERIAL not null references public.users (id),
-        follower_ID BIGSERIAL not null references public.users (id),
+ IF NOT EXISTS PUBLIC.FOLLOWS (
+        USER_ID BIGSERIAL NOT NULL REFERENCES PUBLIC.USERS (ID),
+        FOLLOWER_ID BIGSERIAL NOT NULL REFERENCES PUBLIC.USERS (ID),
         CREATED_AT TIMESTAMP DEFAULT NOW (),
         UPDATED_AT TIMESTAMP DEFAULT NOW ()
     );
 
-create index posts_user_id_index on public.posts (user_id); 
+CREATE INDEX POSTS_USER_ID_INDEX ON PUBLIC.POSTS (USER_ID); 
 
-create index follows_user_id_index on public.follows (user_id); 
+CREATE INDEX FOLLOWS_USER_ID_INDEX ON PUBLIC.FOLLOWS (USER_ID); 
 
-create index follows_follower_id_index on public.follows (follower_id);
+CREATE INDEX FOLLOWS_FOLLOWER_ID_INDEX ON PUBLIC.FOLLOWS (FOLLOWER_ID);
 
-
+CREATE UNIQUE INDEX FOLLOWS_USER_FOLLOWER ON PUBLIC.FOLLOWS (USER_ID, FOLLOWER_ID);
 
