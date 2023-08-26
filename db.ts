@@ -11,13 +11,13 @@ export async function getClient(): Promise<Client> {
     });
     return client;
   }
-   const client = new Client({
+  const client = new Client({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
         database: process.env.DB_NAME,
         port: parseInt(process.env.DB_PORT!),
-    })
+})
   return client;
 }
 
@@ -31,3 +31,4 @@ export async function sql(
   await client.end();
   return res;
 }
+ 
